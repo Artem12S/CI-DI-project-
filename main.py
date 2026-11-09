@@ -9,7 +9,16 @@ from pytest_runner import CheckError, run_tests
 
 
 def main() -> int:
-    """Запускает команду CLI и возвращает код завершения процесса."""
+    """Читает аргументы из sys.argv, открывает журнал и запускает проверку.
+
+    Returns:
+        0 при успехе, 1 при ошибке журнала или проверки, 130 при прерывании
+        вызова run_tests пользователем.
+
+    Raises:
+        SystemExit: argparse завершает разбор с кодом 2 при ошибке аргументов
+            или с кодом 0 при запросе справки.
+    """
     parser = argparse.ArgumentParser(description="Проверка Python-проекта")
     commands = parser.add_subparsers(dest="command", required=True)
     check = commands.add_parser("check", help="проверить проект")
